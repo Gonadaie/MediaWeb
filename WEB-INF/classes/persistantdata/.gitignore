@@ -1,1 +1,6 @@
 /MediathequeData.class
+/Livre.class
+/Document.class
+/DocumentData.class
+/ConnexionDB.class
+/ConnectionDB.class

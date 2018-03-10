@@ -10,7 +10,7 @@ import java.util.List;
  LES SERVLETS DOIVENT S'ADRESSER A CETTE CLASSE EXCLUSIVEMENT
  POUR INTERROGER LES DONNEES
 
- beaucoup des methodes de Mediatheque sont deleguees e l'attribut de persistance
+ beaucoup des methodes de Mediatheque sont deleguees a l'attribut de persistance
  qui devra repercuter ces operations sur les donnees persistantes
 
 */
@@ -21,10 +21,12 @@ public class Mediatheque {
 	static {
 		instance = new Mediatheque();
 	}
+	
 	private static Mediatheque instance;
 	public static Mediatheque getInstance() {
 		return instance;
 	}
+	
 	private Mediatheque () {}
 // fin - singleton standard ==================
 
@@ -35,6 +37,7 @@ public class Mediatheque {
 		if (this.data == null) this.data = data;
 	}
 // fin - lien avec les donnees persistantes +++++++++
+	
 
 // ********** action sur le document ***********************
 
@@ -46,15 +49,15 @@ public class Mediatheque {
 
 	//enregistre le retour du document d)
 
-	public void retour (Document d) {
-		d.retour();
+	public void retour (Document d, Utilisateur a) throws DocNonPossedeException {
+		d.retour(a);
 	}
 
 // *********************** delegation **********************
 
 	// renvoie la liste de tous les documents de la bibliotheque
 
-	public List<Document> tousLesDocuments() {
+	public List<Document> documents() {
 		return data.documents();
 	}
 

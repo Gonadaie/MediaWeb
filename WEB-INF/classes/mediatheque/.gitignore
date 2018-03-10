@@ -3,3 +3,5 @@
 /Mediatheque.class
 /PersistentMediatheque.class
 /Utilisateur.class
+/RetourException.class
+/DocNonPossedeException.class

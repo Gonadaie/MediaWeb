@@ -6,7 +6,7 @@ public interface Document {
 // Jean-Francois Brette 01/01/2018
 	
 	void emprunter(Utilisateur a) throws EmpruntException;
-	void retour();
+	void retour(Utilisateur a) throws DocNonPossedeException;
 	Object[] affiche();
 	
 }

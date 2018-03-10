@@ -1,10 +1,9 @@
 package mediatheque;
 
 public class EmpruntException extends Exception {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
+	public EmpruntException() {
+		super("Le document n'a pas pu etre emprunte");
+	}
 
 }
