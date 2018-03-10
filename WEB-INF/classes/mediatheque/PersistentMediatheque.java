@@ -3,8 +3,8 @@ package mediatheque;
 import java.util.List;
 
 public interface PersistentMediatheque {
-// Jean-François Brette 01/01/2018
-	List<Document> tousLesDocuments();
+// Jean-Francois Brette 01/01/2018
+	List<Document> documents();
 
 	Document getDocument(int numDocument);
 

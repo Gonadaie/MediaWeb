@@ -5,10 +5,10 @@ import java.util.List;
 import mediatheque.*;
 
 // classe mono-instance  dont l'unique instance n'est connue que de la bibliotheque
-// via une auto-déclaration dans son bloc static
+// via une auto-declaration dans son bloc static
 
 public class MediathequeData implements PersistentMediatheque {
-// Jean-François Brette 01/01/2018
+// Jean-Francois Brette 01/01/2018
 	static {
 		Mediatheque.getInstance().setData(new MediathequeData());
 	}
@@ -16,22 +16,22 @@ public class MediathequeData implements PersistentMediatheque {
 	private MediathequeData() {
 	}
 
-	// renvoie la liste de tous les documents de la bibliothèque
+	// renvoie la liste de tous les documents de la bibliotheque
 	@Override
-	public List<Document> tousLesDocuments() {
+	public List<Document> documents() {
 		return null;
 	}
 
-	// va récupérer le User dans la BD et le renvoie
-	// si pas trouvé, renvoie null
+	// va recuperer le User dans la BD et le renvoie
+	// si pas trouve, renvoie null
 	@Override
 	public Utilisateur getUser(String login, String password) {
 		return null;
 	}
 
-	// va récupérer le document de numéro numDocument dans la BD
+	// va recuperer le document de numero numDocument dans la BD
 	// et le renvoie
-	// si pas trouvé, renvoie null
+	// si pas trouve, renvoie null
 	@Override
 	public Document getDocument(int numDocument) {
 		return null;

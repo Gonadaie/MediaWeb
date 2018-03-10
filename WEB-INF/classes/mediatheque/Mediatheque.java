@@ -3,19 +3,19 @@ package mediatheque;
 import java.util.List;
 
 /**
- cette classe représente la mediatheque du point de vue du domaine
+ cette classe represente la mediatheque du point de vue du domaine
  cette classe est un singleton
- elle a un attribut qui fait le lien avec les données persistentes
+ elle a un attribut qui fait le lien avec les donnees persistentes
  
  LES SERVLETS DOIVENT S'ADRESSER A CETTE CLASSE EXCLUSIVEMENT
  POUR INTERROGER LES DONNEES
 
- beaucoup des méthodes de Mediatheque sont déléguées à l'attribut de persistance
- qui devra répercuter ces opérations sur les données persistantes
+ beaucoup des methodes de Mediatheque sont deleguees e l'attribut de persistance
+ qui devra repercuter ces operations sur les donnees persistantes
 
 */
 public class Mediatheque {
-// Jean-François Brette 01/01/2018
+// Jean-Francois Brette 01/01/2018
 
 // singleton standard ======================== 
 	static {
@@ -28,17 +28,17 @@ public class Mediatheque {
 	private Mediatheque () {}
 // fin - singleton standard ==================
 
-// lien avec les données persistantes +++++++++++++++
+// lien avec les donnees persistantes +++++++++++++++
 	private PersistentMediatheque data;
 
 	public void setData(PersistentMediatheque data) {
 		if (this.data == null) this.data = data;
 	}
-// fin - lien avec les données persistantes +++++++++
+// fin - lien avec les donnees persistantes +++++++++
 
 // ********** action sur le document ***********************
 
-	// enregistre l'emprunt par l'abonné a du document d)
+	// enregistre l'emprunt par l'abonne a du document d)
 
 	public void emprunt(Document d, Utilisateur a) throws EmpruntException {
 		d.emprunter(a);
@@ -50,23 +50,23 @@ public class Mediatheque {
 		d.retour();
 	}
 
-// *********************** délégation **********************
+// *********************** delegation **********************
 
-	// renvoie la liste de tous les documents de la bibliothèque
+	// renvoie la liste de tous les documents de la bibliotheque
 
 	public List<Document> tousLesDocuments() {
-		return data.tousLesDocuments();
+		return data.documents();
 	}
 
 	// renvoie le user de login et passwd 
-	// si pas trouvé, renvoie null
+	// si pas trouve, renvoie null
 	
 	public Utilisateur getUser (String login, String password) {
 		return data.getUser(login, password);
 	}
 
-	// renvoie le document de numéro numDocument
-	// si pas trouvé, renvoie null
+	// renvoie le document de numero numDocument
+	// si pas trouve, renvoie null
 
 	public Document getDocument(int numDocument) {
 		return data.getDocument(numDocument);
