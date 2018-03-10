@@ -25,9 +25,7 @@ CREATE TABLE DVD(
 	titre VARCHAR(32) NOT NULL,
 	nomAuteur VARCHAR(32) NOT NULL,
 	duree INT NOT NULL,
-	idUser INT,
-	PRIMARY KEY (codeDoc),
-	FOREIGN KEY (idUser) REFERENCES USER(id)
+	PRIMARY KEY (codeDoc)
 );
 
 CREATE TABLE LIVRE(
@@ -35,9 +33,7 @@ CREATE TABLE LIVRE(
 	titre VARCHAR(32) NOT NULL,
 	nomAuteur VARCHAR(32) NOT NULL,
 	nbPages INT NOT NULL,
-	idUser INT,
-	PRIMARY KEY (codeDoc),
-	FOREIGN KEY (idUser) REFERENCES USER(id)
+	PRIMARY KEY (codeDoc)
 );
 
 CREATE TABLE CD(
@@ -45,9 +41,7 @@ CREATE TABLE CD(
 	titre VARCHAR(32) NOT NULL,
 	nomAuteur VARCHAR(32) NOT NULL,
 	nbPistes INT NOT NULL,
-	idUser INT,
-	PRIMARY KEY (codeDoc),
-	FOREIGN KEY (idUser) REFERENCES USER(id)
+	PRIMARY KEY (codeDoc)
 );
 
 INSERT INTO USER (name, password) VALUES ('admin', 'admin');
