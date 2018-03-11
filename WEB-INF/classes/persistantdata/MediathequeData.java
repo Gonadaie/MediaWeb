@@ -1,6 +1,6 @@
 package persistantdata;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import mediatheque.*;
@@ -35,7 +35,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  documentsStatement.executeQuery();
 			
-			List<Document> list = new ArrayList<>();
+			List<Document> list = new LinkedList<>();
 			while(result.next())
 				list.add(new DocumentData(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
 			
