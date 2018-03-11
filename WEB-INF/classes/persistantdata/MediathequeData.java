@@ -86,10 +86,22 @@ public class MediathequeData implements PersistentMediatheque {
 	}
 
 	@Override
-	public void nouveauDocument(int type, Object... args) {
+	public void nouveauDocument(int type, Object... args) throws CreationDocumentException {
 		// args[0] -> le titre
 		// args [1] --> l'auteur
 		// etc...
+		
+		if(args.length < 3) throw new CreationDocumentException();
+		
+		Connection co = ConnectionDB.getConnection();
+		String nouveauDocQuery = "INSERT INTO DOCUMENT (id, titre, nomAuteur, type) VALUES (?, ?, ?, ?)";
+		try {
+			PreparedStatement nouveauDocStatement = co.prepareStatement(nouveauDocQuery);
+			nouveauDocStatement.setInt(1, (int)args[0]);
+			nouveauDocStatement.setString(2,(String)args[1]);
+			nouveauDocStatement.setString(3,(String)args[2]);
+			nouveauDocStatement.setInt(4,  type);
+			nouveauDocStatement.executeQuery();
+		} catch (SQLException e) { e.printStackTrace(); }
 	}
-
 }

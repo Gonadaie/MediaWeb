@@ -77,7 +77,7 @@ public class Mediatheque {
 	
 	// ajoute un nouveau document
 
-	public void nouveauDocument(int type, Object... args ) {
+	public void nouveauDocument(int type, Object... args ) throws CreationDocumentException {
 		data.nouveauDocument(type, args);
 	};
 

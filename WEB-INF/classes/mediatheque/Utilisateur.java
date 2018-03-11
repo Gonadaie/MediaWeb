@@ -11,7 +11,6 @@ public class Utilisateur {
 		this.name = name;
 	}
 
-
 	public int getId() {
 		return id;
 	}

@@ -15,11 +15,17 @@ public class DocumentData implements Document {
 	private int id;
 	private String titre;
 	private String auteur;
+	private int type;
 	
 	public DocumentData(int id, String titre, String auteur) {
 		this.id = id;
 		this.titre = titre;
 		this.auteur = auteur;
+	}
+	
+	public DocumentData(int id, String titre, String auteur, int type) {
+		this(id, titre, auteur);
+		this.type = type;
 	}
 
 	@Override

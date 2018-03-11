@@ -5,3 +5,4 @@
 /Utilisateur.class
 /RetourException.class
 /DocNonPossedeException.class
+/CreationDocumentException.class

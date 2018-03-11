@@ -4,3 +4,6 @@
 /DocumentData.class
 /ConnexionDB.class
 /ConnectionDB.class
+/MediathequeData$DOC_TYPE.class
+/DocumentData$DOC_TYPE.class
+/CreationDocumentException.class
