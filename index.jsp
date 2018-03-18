@@ -2,11 +2,11 @@
 
 <html>
 <body>
-	<h1>Connection</h1>
-	<form>
-		<input type="text" beholder="username"></input>
-		<input type="password"></input>
-		<input type="submit"></input>
+	<h1>Connexion</h1>
+	<form method="POST" action="connection">
+		<input type="text" name="user" beholder="username"></input>
+		<input type="password" name="password" beholder="password"></input>
+		<input type="submit" value="Connexion"></input>
 	</form>
 </body>
 </html>

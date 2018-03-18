@@ -30,6 +30,6 @@
 	<classpathentry kind="lib" path="/home/raphael/Programming/Java/tomcat/lib/tomcat-util-scan.jar"/>
 	<classpathentry kind="lib" path="/home/raphael/Programming/Java/tomcat/lib/tomcat-websocket.jar"/>
 	<classpathentry kind="lib" path="/home/raphael/Programming/Java/tomcat/lib/websocket-api.jar"/>
-	<classpathentry kind="lib" path="/home/raphael/Programming/Java/tomcat/webapps/MediaWeb/WEB-INF/mysql-connector-java-5.1.45-bin.jar"/>
+	<classpathentry kind="lib" path="/home/raphael/Programming/Java/tomcat/lib/mysql-connector-java-5.1.45-bin.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

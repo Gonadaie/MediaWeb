@@ -20,7 +20,7 @@ public class MediathequeData implements PersistentMediatheque {
 		co = ConnectionDB.getConnection();
 	}
 
-	private MediathequeData() {
+	public MediathequeData() {
 		
 	}
 
@@ -57,8 +57,8 @@ public class MediathequeData implements PersistentMediatheque {
 			userStatement.setString(2, password);
 			
 			ResultSet result =  userStatement.executeQuery();
-			result.first();
-			return new Utilisateur(result.getInt("id"), result.getString("name"));
+			if(result.first())
+				return new Utilisateur(result.getInt("id"), result.getString("name"));
 			
 		} catch (SQLException e) { e.printStackTrace(); }
 		

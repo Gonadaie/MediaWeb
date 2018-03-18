@@ -1,4 +1,17 @@
 <web-app>
-	<!--<servlet-name>Example</servlet-name>
-	<servlet-class>Example</servlet-class>-->
+
+	<listener>
+		<listener-class>persistantdata.Config</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>Connection</servlet-name>
+		<servlet-class>services.Connection</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Connection</servlet-name>
+		<url-pattern>/connection</url-pattern>
+	</servlet-mapping>
+
 </web-app>
