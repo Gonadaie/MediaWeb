@@ -4,11 +4,12 @@ public class Utilisateur {
 	
 	private int id;
 	private String name;
+	private int type;
 	
-	
-	public Utilisateur(int id, String name) {
+	public Utilisateur(int id, String name, int type) {
 		this.id = id;
 		this.name = name;
+		this.type = type;
 	}
 
 	public int getId() {
@@ -17,5 +18,9 @@ public class Utilisateur {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public int getType() {
+		return type;
 	}
 }

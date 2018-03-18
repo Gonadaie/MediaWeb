@@ -22,9 +22,11 @@ public class Connection extends HttpServlet {
 			Utilisateur user = connectUser(username, password);
 			HttpSession session = req.getSession();
 			session.setAttribute("user", user);
-			out.println("OK");
+			resp.sendRedirect("accueil");
+			//out.println("Bienvenue " + user.getName() + " !");
 		}
 		catch(ConnectionException e) {out.write(e.getMessage());}
+		out.close();
 	}
 	
 	public Utilisateur connectUser(String username, String password) throws ConnectionException {

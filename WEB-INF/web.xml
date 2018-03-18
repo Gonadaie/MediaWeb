@@ -14,4 +14,37 @@
 		<url-pattern>/connection</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>Emprunt</servlet-name>
+		<servlet-class>services.Emprunt</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Emprunt</servlet-name>
+		<url-pattern>/services/emprunt</url-pattern>
+	</servlet-mapping>
+
+<!-- ######## JSP ####### -->
+
+	<servlet>
+		<servlet-name>Accueil</servlet-name>
+		<jsp-file>/accueil.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Accueil</servlet-name>
+		<url-pattern>/accueil</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Emprunter</servlet-name>
+		<jsp-file>/emprunter.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Emprunter</servlet-name>
+		<url-pattern>/emprunter</url-pattern>
+	</servlet-mapping>
+
+
 </web-app>

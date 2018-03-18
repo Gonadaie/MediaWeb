@@ -58,7 +58,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  userStatement.executeQuery();
 			if(result.first())
-				return new Utilisateur(result.getInt("id"), result.getString("name"));
+				return new Utilisateur(result.getInt("id"), result.getString("name"), result.getInt("type"));
 			
 		} catch (SQLException e) { e.printStackTrace(); }
 		
