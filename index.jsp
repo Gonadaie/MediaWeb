@@ -5,7 +5,7 @@
 
 	<%
 		if(request.getSession().getAttribute("user") != null){
-			response.sendRedirect("/acceuil");
+			response.sendRedirect("/accueil");
 		}
 	%>
 	

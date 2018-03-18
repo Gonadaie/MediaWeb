@@ -37,9 +37,9 @@ public class DocumentData implements Document {
 		
 		try {
 			PreparedStatement empruntStatement = co.prepareStatement(empruntQuery);
-			empruntStatement.setInt(1,  this.id);
-			empruntStatement.setInt(1,  a.getId());
-			empruntStatement.executeQuery();
+			empruntStatement.setInt(1, this.id);
+			empruntStatement.setInt(2, a.getId());
+			empruntStatement.executeUpdate();
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
 
@@ -54,7 +54,7 @@ public class DocumentData implements Document {
 			PreparedStatement deleteStatement = co.prepareStatement(deleteQuery);
 			deleteStatement.setInt(1, a.getId());
 			deleteStatement.setInt(2, this.id);
-			deleteStatement.executeQuery();
+			deleteStatement.executeUpdate();
 		} catch (SQLException e) { e.printStackTrace() ;
 		}
 	}

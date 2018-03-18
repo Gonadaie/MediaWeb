@@ -101,7 +101,7 @@ public class MediathequeData implements PersistentMediatheque {
 			nouveauDocStatement.setString(2,(String)args[1]);
 			nouveauDocStatement.setString(3,(String)args[2]);
 			nouveauDocStatement.setInt(4,  type);
-			nouveauDocStatement.executeQuery();
+			nouveauDocStatement.executeUpdate();
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
 }
