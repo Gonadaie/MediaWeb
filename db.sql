@@ -44,5 +44,5 @@ INSERT INTO DOCUMENT (titre, nomAuteur) VALUES ('Or Noir Deluxe', 'Kaaris');
 INSERT INTO DOCUMENT (titre, nomAuteur) VALUES ('Blade Runner', 'Ridley Scott'); 
 INSERT INTO DOCUMENT (titre, nomAuteur) VALUES ('Titanic', 'James Cameron');
 
-INSERT INTO EMPRUNT (idDoc, idUser) VALUES (2, 3);
-INSERT INTO EMPRUNT (idDoc, idUser) VALUES (5, 2);
+INSERT INTO EMPRUNT (idDoc, idUser) VALUES (2, 4);
+INSERT INTO EMPRUNT (idDoc, idUser) VALUES (5, 3);

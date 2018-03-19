@@ -19,6 +19,7 @@
 	<h1>Bienvenue <%= user.getName() %> !</h1>
 
 	<a href="emprunter">Emprunter un document</a>
+	<a href="retourner">Retourner un document</a>
 	<%
 		if(user.getType() == 2)
 			out.println("<a href='ajout'>Ajouter un document</a>");

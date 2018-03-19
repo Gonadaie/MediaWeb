@@ -30,7 +30,7 @@ public class DocumentData implements Document {
 
 	@Override
 	public void emprunter(Utilisateur a) throws EmpruntException {
-		if(this.estEmprunte() != 0) throw new EmpruntException();
+		if(this.estEmpruntePar() != 0) throw new EmpruntException();
 		
 		Connection co = ConnectionDB.getConnection();
 		String empruntQuery = "INSERT INTO EMPRUNT (idDoc, idUser) VALUE (?, ?)";
@@ -47,7 +47,7 @@ public class DocumentData implements Document {
 	public void retour(Utilisateur a) throws DocNonPossedeException {
 		Connection co = ConnectionDB.getConnection();
 		
-		if(estEmprunte() != this.id) throw new DocNonPossedeException();
+		if(estEmpruntePar() != a.getId()) throw new DocNonPossedeException();
 		
 		try {
 			String deleteQuery = "DELETE FROM EMPRUNT WHERE idUser = ? AND idDoc = ?";
@@ -68,16 +68,16 @@ public class DocumentData implements Document {
 	/**
 	 * @return l'id de l'utilisateur ayant emprunte le document, ou 0 si le document n'est pas emprunte
 	 */
-	public int estEmprunte() {
+	public int estEmpruntePar() {
 		Connection co = ConnectionDB.getConnection();
-		String estEmprunteQuery = "SELECT idUser FROM EMPRUNT WHERE idDoc = ?";
-		PreparedStatement estEmprunteStatement;
+		String estEmprunteParQuery = "SELECT idUser FROM EMPRUNT WHERE idDoc = ?";
+		PreparedStatement estEmprunteParStatement;
 		try {
-			estEmprunteStatement = co.prepareStatement(estEmprunteQuery);
-			estEmprunteStatement.setInt(1, this.id);
+			estEmprunteParStatement = co.prepareStatement(estEmprunteParQuery);
+			estEmprunteParStatement.setInt(1, this.id);
 			ResultSet result;
-				result = estEmprunteStatement.executeQuery();
-			return result.next() ? result.getInt("id") : 0;
+				result = estEmprunteParStatement.executeQuery();
+			return result.first() ? result.getInt("idUser") : 0;
 		} catch (SQLException e) { e.printStackTrace(); }
 		return 0;
 	}

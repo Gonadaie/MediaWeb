@@ -4,6 +4,8 @@
 		<listener-class>persistantdata.Config</listener-class>
 	</listener>
 
+<!-- ######## Services ######## -->
+
 	<servlet>
 		<servlet-name>Connection</servlet-name>
 		<servlet-class>services.Connection</servlet-class>
@@ -23,6 +25,17 @@
 		<servlet-name>Emprunt</servlet-name>
 		<url-pattern>/services/emprunt</url-pattern>
 	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Retour</servlet-name>
+		<servlet-class>services.Retour</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Retour</servlet-name>
+		<url-pattern>/services/retour</url-pattern>
+	</servlet-mapping>
+
 
 <!-- ######## JSP ####### -->
 
@@ -45,6 +58,15 @@
 		<servlet-name>Emprunter</servlet-name>
 		<url-pattern>/emprunter</url-pattern>
 	</servlet-mapping>
-
+	
+	<servlet>
+		<servlet-name>Retourner</servlet-name>
+		<jsp-file>/retourner.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Retourner</servlet-name>
+		<url-pattern>/retourner</url-pattern>
+	</servlet-mapping>
 
 </web-app>
