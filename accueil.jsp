@@ -22,7 +22,7 @@
 	<a href="retourner">Retourner un document</a>
 	<%
 		if(user.getType() == 2)
-			out.println("<a href='ajout'>Ajouter un document</a>");
+			out.println("<a href='ajouter'>Ajouter un document</a>");
 	%>
 	
 </body>

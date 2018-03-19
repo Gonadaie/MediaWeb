@@ -77,8 +77,8 @@ public class Mediatheque {
 	
 	// ajoute un nouveau document
 
-	public void nouveauDocument(int type, Object... args ) throws CreationDocumentException {
-		data.nouveauDocument(type, args);
+	public void nouveauDocument(Utilisateur user, int type, Object... args ) throws CreationDocumentException, ActionNonAutoriseeException {
+		data.nouveauDocument(user, type, args);
 	};
 
 }

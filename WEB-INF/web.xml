@@ -36,6 +36,16 @@
 		<url-pattern>/services/retour</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>Ajout</servlet-name>
+		<servlet-class>services.Ajout</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Ajout</servlet-name>
+		<url-pattern>/services/ajout</url-pattern>
+	</servlet-mapping>
+
 
 <!-- ######## JSP ####### -->
 
@@ -67,6 +77,16 @@
 	<servlet-mapping>
 		<servlet-name>Retourner</servlet-name>
 		<url-pattern>/retourner</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Ajouter</servlet-name>
+		<jsp-file>/ajouter.jsp</jsp-file>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>Ajouter</servlet-name>
+		<url-pattern>/ajouter</url-pattern>
 	</servlet-mapping>
 
 </web-app>

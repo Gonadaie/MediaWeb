@@ -10,6 +10,6 @@ public interface PersistentMediatheque {
 
 	Utilisateur getUser(String login, String password);
 	
-	void nouveauDocument(int type, Object... args ) throws CreationDocumentException;
+	void nouveauDocument(Utilisateur user, int type, Object... args ) throws CreationDocumentException, ActionNonAutoriseeException;
 
 }
