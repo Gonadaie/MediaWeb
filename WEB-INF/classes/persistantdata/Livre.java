@@ -10,22 +10,24 @@ import mediatheque.EmpruntException;
 import mediatheque.DocNonPossedeException;
 import mediatheque.Utilisateur;
 
-public class DocumentData implements Document {
+public class Livre implements Document {
 	
 	private int id;
 	private String titre;
 	private String auteur;
-	private int type;
+	private int nbPages;
+	private String genre;
 	
-	public DocumentData(int id, String titre, String auteur) {
+	public Livre(int id, String titre, String auteur) {
 		this.id = id;
 		this.titre = titre;
 		this.auteur = auteur;
 	}
 	
-	public DocumentData(int id, String titre, String auteur, int type) {
+	public Livre(int id, String titre, String auteur, int nbPages, String genre) {
 		this(id, titre, auteur);
-		this.type = type;
+		this.nbPages = nbPages;
+		this.genre = genre;
 	}
 
 	@Override

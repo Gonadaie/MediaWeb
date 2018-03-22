@@ -37,7 +37,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			List<Document> list = new LinkedList<>();
 			while(result.next())
-				list.add(new DocumentData(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+				list.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
 			
 			return list;
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -79,7 +79,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  documentsStatement.executeQuery();
 			result.first();
-			return new DocumentData(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur"));
+			return new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur"));
 			
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;

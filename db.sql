@@ -24,6 +24,8 @@ CREATE TABLE DOCUMENT (
 	titre VARCHAR(32) NOT NULL,
 	nomAuteur VARCHAR(32) NOT NULL,
 	type VARCHAR(32),
+	nbPages INT,
+	genre VARCHAR(32),
 	PRIMARY KEY (id)
 );
 

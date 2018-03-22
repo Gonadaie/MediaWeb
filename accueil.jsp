@@ -25,6 +25,8 @@
 			out.println("<a href='ajouter'>Ajouter un document</a>");
 	%>
 	
+	<a href="disconnect">Deconnexion</a>
+	
 </body>
 
 </html>

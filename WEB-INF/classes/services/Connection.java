@@ -1,7 +1,9 @@
 package services;
 
 import mediatheque.Mediatheque;
+import mediatheque.PersistentMediatheque;
 import mediatheque.Utilisateur;
+import persistantdata.MediathequeData;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -18,12 +20,15 @@ public class Connection extends HttpServlet {
 		String username = req.getParameter("user");
 		String password = req.getParameter("password");
 		
+		if(username.equals("admin"))
+			if(password.equals("admin"))
+				initDB();
+		
 		try {
 			Utilisateur user = connectUser(username, password);
 			HttpSession session = req.getSession();
 			session.setAttribute("user", user);
 			resp.sendRedirect("accueil");
-			//out.println("Bienvenue " + user.getName() + " !");
 		}
 		catch(ConnectionException e) {out.write(e.getMessage());}
 		out.close();
@@ -37,5 +42,9 @@ public class Connection extends HttpServlet {
 		}
 		else
 			throw new ConnectionException();
+	}
+	
+	public void initDB() {
+		PersistentMediatheque m = new MediathequeData();
 	}
 }
