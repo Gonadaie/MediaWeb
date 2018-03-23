@@ -1,6 +1,12 @@
 package mediatheque;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
+
+import persistantdata.Livre;
 
 /**
  cette classe represente la mediatheque du point de vue du domaine
@@ -80,5 +86,17 @@ public class Mediatheque {
 	public void nouveauDocument(Utilisateur user, int type, Object... args ) throws CreationDocumentException, ActionNonAutoriseeException {
 		data.nouveauDocument(user, type, args);
 	};
+	
+	public List<Document> getDocumentsEmpruntesPar(Utilisateur a) {
+		return data.getDocumentsEmpruntesPar(a);
+	}
+	
+	public List<Document> getDocumentsEmpruntes() {
+		return data.getDocumentsEmpruntes();
+	}
+
+	public List<Document> getDocumentsDisponibles() {
+		return data.getDocumentsDisponibles();
+	}
 
 }

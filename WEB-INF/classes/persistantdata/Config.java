@@ -9,7 +9,7 @@ import mediatheque.PersistentMediatheque;
 @WebListener
 public class Config implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
-        PersistentMediatheque m = new MediathequeData();
+    	//PersistentMediatheque m = new MediathequeData();
     }
     
     public void contextDestroyed(ServletContextEvent event) {

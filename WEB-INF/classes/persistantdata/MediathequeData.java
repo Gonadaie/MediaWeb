@@ -37,7 +37,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			List<Document> list = new LinkedList<>();
 			while(result.next())
-				list.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+				list.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomnomAuteur")));
 			
 			return list;
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -79,7 +79,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  documentsStatement.executeQuery();
 			result.first();
-			return new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur"));
+			return new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomnomAuteur"));
 			
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
@@ -88,14 +88,13 @@ public class MediathequeData implements PersistentMediatheque {
 	@Override
 	public void nouveauDocument(Utilisateur user, int type, Object... args) throws CreationDocumentException, ActionNonAutoriseeException {
 		// args[0] -> le titre
-		// args [1] --> l'auteur
+		// args [1] --> l'nomAuteur
 		// etc...
 		
 		if(args.length < 2) throw new CreationDocumentException();
 		if(user.getType() > 2) throw new ActionNonAutoriseeException();
 		
-		Connection co = ConnectionDB.getConnection();
-		String nouveauDocQuery = "INSERT INTO DOCUMENT (titre, nomAuteur, type) VALUES (?, ?, ?)";
+		String nouveauDocQuery = "INSERT INTO DOCUMENT (titre, nomnomAuteur, type) VALUES (?, ?, ?)";
 		try {
 			PreparedStatement nouveauDocStatement = co.prepareStatement(nouveauDocQuery);
 			nouveauDocStatement.setString(1,(String)args[0]);
@@ -103,5 +102,51 @@ public class MediathequeData implements PersistentMediatheque {
 			nouveauDocStatement.setInt(3,  type);
 			nouveauDocStatement.executeUpdate();
 		} catch (SQLException e) { e.printStackTrace(); }
+	}
+	
+	public List<Document> getDocumentsEmpruntesPar(Utilisateur a) {
+		String query = "SELECT * FROM DOCUMENT WHERE id IN (SELECT idDoc FROM EMPRUNT WHERE idUser = ?)";
+		List<Document> docs = new LinkedList<>();
+		
+		try {
+			PreparedStatement statement = co.prepareStatement(query);
+			statement.setInt(1, a.getId());
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next())
+				docs.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+		}catch(SQLException e) { e.printStackTrace(); }
+		
+		return docs;
+	}
+	
+	public List<Document> getDocumentsEmpruntes() {
+		String query = "SELECT * FROM DOCUMENT WHERE id IN (SELECT idDoc FROM EMPRUNT)";
+		List<Document> docs = new LinkedList<>();
+		
+		try {
+			PreparedStatement statement = co.prepareStatement(query);
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next())
+				docs.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+		}catch(SQLException e) { e.printStackTrace(); }
+		
+		return docs;
+	}
+
+	public List<Document> getDocumentsDisponibles() {
+		String query = "SELECT * FROM DOCUMENT WHERE id NOT IN (SELECT idDoc FROM EMPRUNT)";
+		List<Document> docs = new LinkedList<>();
+		
+		try {
+			PreparedStatement statement = co.prepareStatement(query);
+			ResultSet result = statement.executeQuery();
+			
+			while(result.next())
+				docs.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+		}catch(SQLException e) { e.printStackTrace(); }
+		
+		return docs;
 	}
 }
