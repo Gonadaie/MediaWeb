@@ -63,7 +63,12 @@ public class Livre implements Document {
 
 	@Override
 	public Object[] affiche() {
-		Object[] o = {titre, auteur, nbPages, genre};
+		Object[] o = {	id,
+						titre,
+						auteur,
+						nbPages != 0 ? new String(nbPages + " pages") : null,
+						genre
+					 };
 		return o;
 	}
 	

@@ -12,6 +12,8 @@
 		page import="mediatheque.Mediatheque,mediatheque.Document,mediatheque.Utilisateur,java.util.List"
 	 %>
 	
+	<a href="/MediaWeb/accueil"> <-- Retour </a>
+
 	<form method="POST" action="/MediaWeb/services/retour">
 		<input type="text" name="idDocument"></input>
 		<input type="submit" value="Valider"></input>
@@ -19,17 +21,17 @@
 	<p>${result}</p>
 
 	<%
-		Utilisateur u =(Utilisateur)request.getSession().getAttribute("user");
-		out.println(u.getId());
 		List<Document> docs = Mediatheque.getInstance().getDocumentsEmpruntesPar((Utilisateur)request.getSession().getAttribute("user"));
-		out.println(docs.size());	
 		for(Document doc : docs){
-			out.println("Oui");	
+			for(Object o : doc.affiche()){
+				if(o != null){
 	%>
-		<%=doc.affiche()[0]%> by <%=doc.affiche()[1]%> - <%=doc.affiche()[2]%>	
-	<%
-		}
-	%>
+			<%=o%> - 
+	<%			}
+			}
+	%> </br> 
+	
+	<% } %>
 </body>
 
 </html>

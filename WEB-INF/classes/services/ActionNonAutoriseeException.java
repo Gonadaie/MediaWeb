@@ -1,4 +1,4 @@
-package mediatheque;
+package services;
 
 public class ActionNonAutoriseeException extends Exception {
 	public ActionNonAutoriseeException() {

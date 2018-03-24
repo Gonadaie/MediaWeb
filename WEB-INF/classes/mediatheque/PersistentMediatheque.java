@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import persistantdata.Livre;
+import services.ActionNonAutoriseeException;
 
 public interface PersistentMediatheque {
 // Jean-Francois Brette 01/01/2018
@@ -16,7 +17,7 @@ public interface PersistentMediatheque {
 
 	Utilisateur getUser(String login, String password);
 	
-	void nouveauDocument(Utilisateur user, int type, Object... args ) throws CreationDocumentException, ActionNonAutoriseeException;
+	void nouveauDocument(int type, Object... args ) throws CreationDocumentException;
 
 	public List<Document> getDocumentsEmpruntesPar(Utilisateur a);
 	

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import mediatheque.*;
+import services.ActionNonAutoriseeException;
 
 import java.sql.*;
 
@@ -37,7 +38,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			List<Document> list = new LinkedList<>();
 			while(result.next())
-				list.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomnomAuteur")));
+				list.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
 			
 			return list;
 		} catch (SQLException e) { e.printStackTrace(); }
@@ -79,22 +80,21 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  documentsStatement.executeQuery();
 			result.first();
-			return new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomnomAuteur"));
+			return new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur"));
 			
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
 	}
 
 	@Override
-	public void nouveauDocument(Utilisateur user, int type, Object... args) throws CreationDocumentException, ActionNonAutoriseeException {
+	public void nouveauDocument(int type, Object... args) throws CreationDocumentException {
 		// args[0] -> le titre
 		// args [1] --> l'nomAuteur
 		// etc...
 		
 		if(args.length < 2) throw new CreationDocumentException();
-		if(user.getType() > 2) throw new ActionNonAutoriseeException();
 		
-		String nouveauDocQuery = "INSERT INTO DOCUMENT (titre, nomnomAuteur, type) VALUES (?, ?, ?)";
+		String nouveauDocQuery = "INSERT INTO DOCUMENT (titre, nomAuteur, type) VALUES (?, ?, ?)";
 		try {
 			PreparedStatement nouveauDocStatement = co.prepareStatement(nouveauDocQuery);
 			nouveauDocStatement.setString(1,(String)args[0]);
@@ -113,6 +113,7 @@ public class MediathequeData implements PersistentMediatheque {
 			statement.setInt(1, a.getId());
 			ResultSet result = statement.executeQuery();
 			
+			//TODO Document Factory
 			while(result.next())
 				docs.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
 		}catch(SQLException e) { e.printStackTrace(); }

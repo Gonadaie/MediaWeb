@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import persistantdata.Livre;
+import services.ActionNonAutoriseeException;
 
 /**
  cette classe represente la mediatheque du point de vue du domaine
@@ -83,8 +84,8 @@ public class Mediatheque {
 	
 	// ajoute un nouveau document
 
-	public void nouveauDocument(Utilisateur user, int type, Object... args ) throws CreationDocumentException, ActionNonAutoriseeException {
-		data.nouveauDocument(user, type, args);
+	public void nouveauDocument(int type, Object... args ) throws CreationDocumentException, ActionNonAutoriseeException {
+		data.nouveauDocument(type, args);
 	};
 	
 	public List<Document> getDocumentsEmpruntesPar(Utilisateur a) {
