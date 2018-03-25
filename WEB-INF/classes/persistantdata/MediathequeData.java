@@ -15,13 +15,15 @@ public class MediathequeData implements PersistentMediatheque {
 // Jean-Francois Brette 01/01/2018
 	
 	private static Connection co;
+	private static IDocumentFactory documentFactory;
 	
 	static {
 		Mediatheque.getInstance().setData(new MediathequeData());
 		co = ConnectionDB.getConnection();
+		documentFactory = new DocumentFactory();
 	}
 
-	public MediathequeData() {
+	private MediathequeData() {
 		
 	}
 
@@ -36,11 +38,11 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  documentsStatement.executeQuery();
 			
-			List<Document> list = new LinkedList<>();
+			List<Document> docs = new LinkedList<>();
 			while(result.next())
-				list.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+				docs.add(documentFactory.createDocumentFromResultSet(result));
 			
-			return list;
+			return docs;
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
 	}	
@@ -80,8 +82,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  documentsStatement.executeQuery();
 			result.first();
-			return new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur"));
-			
+			return documentFactory.createDocumentFromResultSet(result);
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
 	}
@@ -92,7 +93,7 @@ public class MediathequeData implements PersistentMediatheque {
 		// args [1] --> l'nomAuteur
 		// etc...
 		
-		if(args.length < 2) throw new CreationDocumentException();
+		if(args.length < 3) throw new CreationDocumentException();
 		
 		String nouveauDocQuery = "INSERT INTO DOCUMENT (titre, nomAuteur, type) VALUES (?, ?, ?)";
 		try {
@@ -115,7 +116,7 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			//TODO Document Factory
 			while(result.next())
-				docs.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+				docs.add(documentFactory.createDocumentFromResultSet(result));
 		}catch(SQLException e) { e.printStackTrace(); }
 		
 		return docs;
@@ -128,9 +129,8 @@ public class MediathequeData implements PersistentMediatheque {
 		try {
 			PreparedStatement statement = co.prepareStatement(query);
 			ResultSet result = statement.executeQuery();
-			
 			while(result.next())
-				docs.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+				docs.add(documentFactory.createDocumentFromResultSet(result));
 		}catch(SQLException e) { e.printStackTrace(); }
 		
 		return docs;
@@ -145,7 +145,7 @@ public class MediathequeData implements PersistentMediatheque {
 			ResultSet result = statement.executeQuery();
 			
 			while(result.next())
-				docs.add(new Livre(result.getInt("id"), result.getString("titre"), result.getString("nomAuteur")));
+				docs.add(documentFactory.createDocumentFromResultSet(result));
 		}catch(SQLException e) { e.printStackTrace(); }
 		
 		return docs;

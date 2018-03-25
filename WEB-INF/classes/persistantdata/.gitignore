@@ -8,3 +8,8 @@
 /DocumentData$DOC_TYPE.class
 /CreationDocumentException.class
 /Config.class
+/DocumentFactory.class
+/IDocumentFactory.class
+/CD.class
+/BaseDocument.class
+/NombreParametresIncorrectException.class

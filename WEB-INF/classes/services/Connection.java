@@ -45,6 +45,8 @@ public class Connection extends HttpServlet {
 	}
 	
 	public void initDB() {
-		PersistentMediatheque m = new MediathequeData();
+		try {
+			Class.forName("persistantdata.MediathequeData");
+		}catch(ClassNotFoundException e) {e.printStackTrace();}
 	}
 }
