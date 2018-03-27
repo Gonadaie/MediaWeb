@@ -1,15 +1,5 @@
 package persistantdata;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import mediatheque.Document;
-import mediatheque.EmpruntException;
-import mediatheque.DocNonPossedeException;
-import mediatheque.Utilisateur;
-
 public class Livre extends BaseDocument {
 	
 	private int nbPages;
@@ -31,7 +21,7 @@ public class Livre extends BaseDocument {
 						id,
 						titre,
 						auteur,
-						nbPages != 0 ? new String(nbPages + " pages") : null,
+						nbPages != 0 ? new String(nbPages + " pages") : "nombre de pages inconnu",
 						genre
 					 };
 		return o;

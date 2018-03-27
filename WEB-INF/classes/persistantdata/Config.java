@@ -4,8 +4,6 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
-import mediatheque.PersistentMediatheque;
-
 @WebListener
 public class Config implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {

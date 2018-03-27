@@ -3,8 +3,11 @@ package persistantdata;
 import java.util.LinkedList;
 import java.util.List;
 
-import mediatheque.*;
-import services.ActionNonAutoriseeException;
+import mediatheque.PersistentMediatheque;
+import mediatheque.Utilisateur;
+import mediatheque.CreationDocumentException;
+import mediatheque.Document;
+import mediatheque.Mediatheque;
 
 import java.sql.*;
 
@@ -114,7 +117,6 @@ public class MediathequeData implements PersistentMediatheque {
 			statement.setInt(1, a.getId());
 			ResultSet result = statement.executeQuery();
 			
-			//TODO Document Factory
 			while(result.next())
 				docs.add(documentFactory.createDocumentFromResultSet(result));
 		}catch(SQLException e) { e.printStackTrace(); }

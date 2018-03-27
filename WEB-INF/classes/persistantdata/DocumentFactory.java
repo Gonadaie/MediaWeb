@@ -3,7 +3,6 @@ package persistantdata;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import mediatheque.CreationDocumentException;
 import mediatheque.Document;
 
 public class DocumentFactory implements IDocumentFactory {
@@ -22,12 +21,15 @@ public class DocumentFactory implements IDocumentFactory {
 		case 1:
 			if(args.length == 3) return new Livre((int)args[0], (String)args[1], (String)args[2]);
 			if(args.length == 5) return new Livre((int)args[0], (String)args[1], (String)args[2], (int)args[3], (String)args[4]);
+			break;
 		case 2:
 			if(args.length == 3) return new CD((int)args[0], (String)args[1], (String)args[2]);
 			if(args.length == 5) return new CD((int)args[0], (String)args[1], (String)args[2], (int)args[3], (String)args[4]);
+			break;
 		case 3:
-			if(args.length == 3) return new CD((int)args[0], (String)args[1], (String)args[2]);
-			if(args.length == 5) return new CD((int)args[0], (String)args[1], (String)args[2], (int)args[3], (String)args[4]);
+			if(args.length == 3) return new DVD((int)args[0], (String)args[1], (String)args[2]);
+			if(args.length == 5) return new DVD((int)args[0], (String)args[1], (String)args[2], (int)args[3], (String)args[4]);
+			break;
 		}
 		
 		throw new IllegalArgumentException();
@@ -44,5 +46,4 @@ public class DocumentFactory implements IDocumentFactory {
 		}
 		return null;
 	}
-	
 }

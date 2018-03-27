@@ -1,9 +1,7 @@
 package services;
 
 import mediatheque.Mediatheque;
-import mediatheque.PersistentMediatheque;
 import mediatheque.Utilisateur;
-import persistantdata.MediathequeData;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,8 +19,11 @@ public class Connection extends HttpServlet {
 		String password = req.getParameter("password");
 		
 		if(username.equals("admin"))
-			if(password.equals("admin"))
+			if(password.equals("admin")) {
 				initDB();
+				resp.sendRedirect(".");
+				return;
+			}
 		
 		try {
 			Utilisateur user = connectUser(username, password);

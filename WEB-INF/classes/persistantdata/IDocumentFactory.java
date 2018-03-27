@@ -3,7 +3,6 @@ package persistantdata;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import mediatheque.CreationDocumentException;
 import mediatheque.Document;
 
 public interface IDocumentFactory {
