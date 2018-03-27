@@ -15,5 +15,6 @@
 		<input type="password" name="password" beholder="password"></input>
 		<input type="submit" value="Connexion"></input>
 	</form>
+	<p>${result}</p>
 </body>
 </html>

@@ -6,12 +6,13 @@ import mediatheque.Utilisateur;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
 public class Connection extends HttpServlet {
 	
 	@Override
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		
 		PrintWriter out = resp.getWriter();
 		
@@ -21,7 +22,9 @@ public class Connection extends HttpServlet {
 		if(username.equals("admin"))
 			if(password.equals("admin")) {
 				initDB();
-				resp.sendRedirect(".");
+				req.setAttribute("result", "Base de donnee initialisee avec succes");
+				req.getRequestDispatcher("/").forward(req, resp);
+				//resp.sendRedirect(".");
 				return;
 			}
 		
@@ -31,7 +34,10 @@ public class Connection extends HttpServlet {
 			session.setAttribute("user", user);
 			resp.sendRedirect("accueil");
 		}
-		catch(ConnectionException e) {out.write(e.getMessage());}
+		catch(ConnectionException e) {
+			req.setAttribute("result", e.getMessage());
+			req.getRequestDispatcher("/").forward(req, resp);
+		}
 		out.close();
 	}
 	
