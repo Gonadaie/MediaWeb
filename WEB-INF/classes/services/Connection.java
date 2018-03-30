@@ -24,7 +24,6 @@ public class Connection extends HttpServlet {
 				initDB();
 				req.setAttribute("result", "Base de donnee initialisee avec succes");
 				req.getRequestDispatcher("/").forward(req, resp);
-				//resp.sendRedirect(".");
 				return;
 			}
 		
@@ -44,9 +43,8 @@ public class Connection extends HttpServlet {
 	public Utilisateur connectUser(String username, String password) throws ConnectionException {
 		Utilisateur user;
 		user = Mediatheque.getInstance().getUser(username, password);
-		if(user != null) {
+		if(user != null)
 			return user;
-		}
 		else
 			throw new ConnectionException();
 	}

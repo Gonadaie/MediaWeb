@@ -34,7 +34,10 @@ public abstract class BaseDocument implements Document {
 			empruntStatement.setInt(1, this.id);
 			empruntStatement.setInt(2, a.getId());
 			empruntStatement.executeUpdate();
-		} catch (SQLException e) { e.printStackTrace(); }
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new EmpruntException();
+		}
 	}
 
 	@Override
@@ -49,7 +52,9 @@ public abstract class BaseDocument implements Document {
 			deleteStatement.setInt(1, a.getId());
 			deleteStatement.setInt(2, this.id);
 			deleteStatement.executeUpdate();
-		} catch (SQLException e) { e.printStackTrace() ;
+		} catch (SQLException e) {
+			e.printStackTrace() ;
+			throw new DocNonPossedeException();
 		}
 	}
 
@@ -74,7 +79,7 @@ public abstract class BaseDocument implements Document {
 			estEmprunteParStatement = co.prepareStatement(estEmprunteParQuery);
 			estEmprunteParStatement.setInt(1, this.id);
 			ResultSet result;
-				result = estEmprunteParStatement.executeQuery();
+			result = estEmprunteParStatement.executeQuery();
 			return result.first() ? result.getInt("idUser") : 0;
 		} catch (SQLException e) { e.printStackTrace(); }
 		return 0;
