@@ -8,5 +8,5 @@ public interface Document {
 	void emprunter(Utilisateur a) throws EmpruntException;
 	void retour(Utilisateur a) throws DocNonPossedeException;
 	Object[] affiche();
-	
+	void ajout();
 }

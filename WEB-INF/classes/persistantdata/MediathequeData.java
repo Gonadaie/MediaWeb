@@ -1,5 +1,6 @@
 package persistantdata;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,12 +18,10 @@ import java.sql.*;
 public class MediathequeData implements PersistentMediatheque {
 // Jean-Francois Brette 01/01/2018
 	
-	private static Connection co;
 	private static IDocumentFactory documentFactory;
 	
 	static {
 		Mediatheque.getInstance().setData(new MediathequeData());
-		co = ConnectionDB.getConnection();
 		documentFactory = new DocumentFactory();
 	}
 
@@ -35,6 +34,7 @@ public class MediathequeData implements PersistentMediatheque {
 	public List<Document> documents() {
 		String query = "SELECT * FROM DOCUMENT";
 		PreparedStatement documentsStatement;
+		Connection co = DBConnection.getConnection();
 		
 		try {
 			documentsStatement = co.prepareStatement(query);
@@ -45,6 +45,8 @@ public class MediathequeData implements PersistentMediatheque {
 			while(result.next())
 				docs.add(documentFactory.createDocumentFromResultSet(result));
 			
+			documentsStatement.close();
+			result.close();
 			return docs;
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
@@ -56,6 +58,7 @@ public class MediathequeData implements PersistentMediatheque {
 	public Utilisateur getUser(String login, String password) {
 		String query = "SELECT * FROM USER WHERE name = ? AND PASSWORD = ?";
 		PreparedStatement userStatement;
+		Connection co = DBConnection.getConnection();
 		
 		try {
 			userStatement = co.prepareStatement(query);
@@ -63,8 +66,13 @@ public class MediathequeData implements PersistentMediatheque {
 			userStatement.setString(2, password);
 			
 			ResultSet result =  userStatement.executeQuery();
-			if(result.first())
-				return new Utilisateur(result.getInt("id"), result.getString("name"), result.getInt("type"));
+			Utilisateur user;
+			if(result.first()) {
+				user = new Utilisateur(result.getInt("id"), result.getString("name"), result.getInt("type"));
+				userStatement.close();
+				result.close();
+				return user;
+			}
 			
 		} catch (SQLException e) { e.printStackTrace(); }
 		
@@ -78,6 +86,7 @@ public class MediathequeData implements PersistentMediatheque {
 	public Document getDocument(int numDocument) {
 		String query = "SELECT * FROM DOCUMENT WHERE id = ?";
 		PreparedStatement documentsStatement;
+		Connection co = DBConnection.getConnection();
 		
 		try {
 			documentsStatement = co.prepareStatement(query);
@@ -85,7 +94,10 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			ResultSet result =  documentsStatement.executeQuery();
 			result.first();
-			return documentFactory.createDocumentFromResultSet(result);
+			Document doc = documentFactory.createDocumentFromResultSet(result);
+			documentsStatement.close();
+			result.close();
+			return doc;
 		} catch (SQLException e) { e.printStackTrace(); }
 		return null;
 	}
@@ -95,22 +107,34 @@ public class MediathequeData implements PersistentMediatheque {
 		// args[0] -> le titre
 		// args [1] --> l'nomAuteur
 		// etc...
+		final int nbParamSQL = 6;
+		if(args.length != nbParamSQL-1) throw new CreationDocumentException();
 		
-		if(args.length < 3) throw new CreationDocumentException();
+		List<Object> argsList = new LinkedList<>(Arrays.asList(args));
+
+		for(int i = args.length; i < nbParamSQL; ++i)
+			argsList.add(null);
 		
-		String nouveauDocQuery = "INSERT INTO DOCUMENT (titre, nomAuteur, type) VALUES (?, ?, ?)";
+		Connection co = DBConnection.getConnection();
+		
+		String nouveauDocQuery = "INSERT INTO DOCUMENT (titre, nomAuteur, type, genre, duree, nbPages) VALUES (?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement nouveauDocStatement = co.prepareStatement(nouveauDocQuery);
-			nouveauDocStatement.setString(1,(String)args[0]);
-			nouveauDocStatement.setString(2,(String)args[1]);
+			nouveauDocStatement.setString(1,(String)argsList.get(0));	//titre
+			nouveauDocStatement.setString(2,(String)argsList.get(1));	//nomAuteur
 			nouveauDocStatement.setInt(3,  type);
+			nouveauDocStatement.setString(4, (String)argsList.get(2)); 	//genre
+			nouveauDocStatement.setInt(5, (int)argsList.get(3)); 		//duree
+			nouveauDocStatement.setInt(6, (int)argsList.get(4));		//nbPages
 			nouveauDocStatement.executeUpdate();
+			nouveauDocStatement.close();
 		} catch (SQLException e) { e.printStackTrace(); }
 	}
 	
 	public List<Document> getDocumentsEmpruntesPar(Utilisateur a) {
 		String query = "SELECT * FROM DOCUMENT WHERE id IN (SELECT idDoc FROM EMPRUNT WHERE idUser = ?)";
 		List<Document> docs = new LinkedList<>();
+		Connection co = DBConnection.getConnection();
 		
 		try {
 			PreparedStatement statement = co.prepareStatement(query);
@@ -119,6 +143,8 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			while(result.next())
 				docs.add(documentFactory.createDocumentFromResultSet(result));
+			statement.close();
+			result.close();
 		}catch(SQLException e) { e.printStackTrace(); }
 		
 		return docs;
@@ -127,12 +153,15 @@ public class MediathequeData implements PersistentMediatheque {
 	public List<Document> getDocumentsEmpruntes() {
 		String query = "SELECT * FROM DOCUMENT WHERE id IN (SELECT idDoc FROM EMPRUNT)";
 		List<Document> docs = new LinkedList<>();
+		Connection co = DBConnection.getConnection();
 		
 		try {
 			PreparedStatement statement = co.prepareStatement(query);
 			ResultSet result = statement.executeQuery();
 			while(result.next())
 				docs.add(documentFactory.createDocumentFromResultSet(result));
+			statement.close();
+			result.close();
 		}catch(SQLException e) { e.printStackTrace(); }
 		
 		return docs;
@@ -141,6 +170,7 @@ public class MediathequeData implements PersistentMediatheque {
 	public List<Document> getDocumentsDisponibles() {
 		String query = "SELECT * FROM DOCUMENT WHERE id NOT IN (SELECT idDoc FROM EMPRUNT)";
 		List<Document> docs = new LinkedList<>();
+		Connection co = DBConnection.getConnection();
 		
 		try {
 			PreparedStatement statement = co.prepareStatement(query);
@@ -148,6 +178,8 @@ public class MediathequeData implements PersistentMediatheque {
 			
 			while(result.next())
 				docs.add(documentFactory.createDocumentFromResultSet(result));
+			statement.close();
+			result.close();
 		}catch(SQLException e) { e.printStackTrace(); }
 		
 		return docs;

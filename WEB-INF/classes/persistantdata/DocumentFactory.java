@@ -9,6 +9,7 @@ public class DocumentFactory implements IDocumentFactory {
 
 	@Override
 	/**
+	 * @brief Fonction très sale
 	 * @param type : Type de document (1 -> Livre, 2 -> CD)
 	 * @param args : Titre, auteur,
 	 * @return Document cree 
@@ -35,6 +36,7 @@ public class DocumentFactory implements IDocumentFactory {
 		throw new IllegalArgumentException();
 	}
 	
+	@Override
 	public Document createDocumentFromResultSet(ResultSet result) throws IllegalArgumentException, SQLException {
 		switch(result.getInt("type")) {
 		case 1:

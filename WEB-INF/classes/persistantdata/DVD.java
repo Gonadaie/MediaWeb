@@ -18,6 +18,7 @@ public class DVD extends BaseDocument {
 	@Override
 	public Object[] affiche() {
 		Object[] o = {	
+				"DVD",
 				id,
 				titre,
 				auteur,

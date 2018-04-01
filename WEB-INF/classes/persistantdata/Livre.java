@@ -18,12 +18,13 @@ public class Livre extends BaseDocument {
 	@Override
 	public Object[] affiche() {
 		Object[] o = {	
-						id,
-						titre,
-						auteur,
-						nbPages != 0 ? new String(nbPages + " pages") : "nombre de pages inconnu",
-						genre
-					 };
+				"Livre",
+				id,
+				titre,
+				auteur,
+				nbPages != 0 ? new String(nbPages + " pages") : "nombre de pages inconnu",
+				genre
+			 };
 		return o;
 	}
 }

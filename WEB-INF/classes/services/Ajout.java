@@ -22,11 +22,18 @@ public class Ajout extends HttpServlet {
 		String docTitle = req.getParameter("docTitle");
 		String docAuthor = req.getParameter("docAuthor");
 		
+		//Params optionnels
+		String genre = req.getParameter("genre");
+		String tmp = req.getParameter("duree");
+		int duree = tmp == "" ? 0 : Integer.parseInt(tmp);
+		tmp = req.getParameter("nbPages");
+		int nbPages = tmp == "" ? 0 : Integer.parseInt(tmp);
 		req.setAttribute("result", "Le document a bien ete ajoute");
 		
 		try {
-			Mediatheque.getInstance().nouveauDocument(docType, docTitle, docAuthor);
 			if(user.getType() > 2) throw new ActionNonAutoriseeException();
+			else
+				Mediatheque.getInstance().nouveauDocument(docType, docTitle, docAuthor, genre, duree, nbPages);
 		} catch (CreationDocumentException | ActionNonAutoriseeException e) { req.setAttribute("result", e.getMessage()); }
 		
 		req.getRequestDispatcher("/ajouter").forward(req, resp);

@@ -26,7 +26,7 @@ public abstract class BaseDocument implements Document {
 	public void emprunter(Utilisateur a) throws EmpruntException {
 		if(this.estEmpruntePar() != 0) throw new EmpruntException();
 		
-		Connection co = ConnectionDB.getConnection();
+		Connection co = DBConnection.getConnection();
 		String empruntQuery = "INSERT INTO EMPRUNT (idDoc, idUser) VALUE (?, ?)";
 		
 		try {
@@ -34,6 +34,7 @@ public abstract class BaseDocument implements Document {
 			empruntStatement.setInt(1, this.id);
 			empruntStatement.setInt(2, a.getId());
 			empruntStatement.executeUpdate();
+			empruntStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			throw new EmpruntException();
@@ -42,7 +43,7 @@ public abstract class BaseDocument implements Document {
 
 	@Override
 	public void retour(Utilisateur a) throws DocNonPossedeException {
-		Connection co = ConnectionDB.getConnection();
+		Connection co = DBConnection.getConnection();
 		
 		if(estEmpruntePar() != a.getId()) throw new DocNonPossedeException();
 		
@@ -52,6 +53,7 @@ public abstract class BaseDocument implements Document {
 			deleteStatement.setInt(1, a.getId());
 			deleteStatement.setInt(2, this.id);
 			deleteStatement.executeUpdate();
+			deleteStatement.close();
 		} catch (SQLException e) {
 			e.printStackTrace() ;
 			throw new DocNonPossedeException();
@@ -72,7 +74,7 @@ public abstract class BaseDocument implements Document {
 	 * @return l'id de l'utilisateur ayant emprunte le document, ou 0 si le document n'est pas emprunte
 	 */
 	public int estEmpruntePar() {
-		Connection co = ConnectionDB.getConnection();
+		Connection co = DBConnection.getConnection();
 		String estEmprunteParQuery = "SELECT idUser FROM EMPRUNT WHERE idDoc = ?";
 		PreparedStatement estEmprunteParStatement;
 		try {
@@ -80,7 +82,10 @@ public abstract class BaseDocument implements Document {
 			estEmprunteParStatement.setInt(1, this.id);
 			ResultSet result;
 			result = estEmprunteParStatement.executeQuery();
-			return result.first() ? result.getInt("idUser") : 0;
+			int r =  result.first() ? result.getInt("idUser") : 0;
+			estEmprunteParStatement.close();
+			result.close();
+			return r;
 		} catch (SQLException e) { e.printStackTrace(); }
 		return 0;
 	}
