@@ -7,6 +7,9 @@
 </head>
 
 <body>
+	
+	<a href="/MediaWeb/accueil"> <-- Retour </a></br>
+
 	<form method="POST" action="/MediaWeb/services/ajout">
 		Type
 		<select name="docType">

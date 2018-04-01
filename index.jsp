@@ -11,8 +11,8 @@
 	
 	<h1>Connexion</h1>
 	<form method="POST" action="/MediaWeb/connection">
-		<input type="text" name="user" beholder="username"></input>
-		<input type="password" name="password" beholder="password"></input>
+		<input type="text" name="user" placeholder="username"></input>
+		<input type="password" name="password" placeholder="password"></input>
 		<input type="submit" value="Connexion"></input>
 	</form>
 	<p>${result}</p>

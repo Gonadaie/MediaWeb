@@ -15,7 +15,7 @@
 	<a href="/MediaWeb/accueil"> <-- Retour </a>
 
 	<form method="POST" action="/MediaWeb/services/retour">
-		<input type="text" name="idDocument"></input>
+		<input type="text" name="idDocument" placeholder="Id du document"></input>
 		<input type="submit" value="Valider"></input>
 	</form>
 	<p>${result}</p>

@@ -19,6 +19,7 @@ public class MediathequeData implements PersistentMediatheque {
 // Jean-Francois Brette 01/01/2018
 	
 	private static IDocumentFactory documentFactory;
+	private Object empruntLock;
 	
 	static {
 		Mediatheque.getInstance().setData(new MediathequeData());
@@ -26,7 +27,7 @@ public class MediathequeData implements PersistentMediatheque {
 	}
 
 	private MediathequeData() {
-		
+		empruntLock = new Object();
 	}
 
 	// renvoie la liste de tous les documents de la bibliotheque
